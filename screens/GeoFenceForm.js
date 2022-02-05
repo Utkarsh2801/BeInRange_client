@@ -7,63 +7,21 @@ import Geolocation from '@react-native-community/geolocation';
 import { areaContext } from '../context/areaContext';
 import { showMessage, hideMessage } from "react-native-flash-message";
 import RNExitApp from 'react-native-exit-app';
-import { PermissionsAndroid } from 'react-native';
-import ReactNativeForegroundService from "@supersami/rn-foreground-service";
+
 import http from '../http/http';
 import apis from '../http/apis';
 
-// Run app in foreground
-const startAppInForeground = () => {
-    ReactNativeForegroundService.start({
-        id: 144,
-        title: ':)',
-        message: "Let's start tracking!",
-    });
-}
 
-
-// Ask User For Location Permissions
-const askForPermission = async () => {
-    const isGranted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-    if (!isGranted) {
-        const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-        )
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            return true;
-        } else {
-            Alert.alert(
-                "Location Access Denied",
-                "You can not access application without location service",
-                [
-                    {
-                        text: "Ok",
-                        onPress: () => {
-                            RNExitApp.exitApp();
-                        },
-                        style: "cancel",
-                    },
-                ],
-                {
-                    cancelable: true,
-                    onDismiss: () => {
-                        RNExitApp.exitApp();
-                    }
-                }
-            );
-        }
-    } else {
-        return true;
-    }
-}
 
 const GeoFenceForm = () => {
     const { coords, setCoords, radius, setRadius, userId, setUserId } = useContext(areaContext);
-    const [loader, setLoader] = useState(false);
+ 
 
     useEffect(() => {
-        initialSetup();
-    }, [])
+        if(userId) {
+            initialSetup();
+        }
+    }, [userId])
 
     const askForCurrentLocation = (i) => {
         Alert.alert(
@@ -93,23 +51,7 @@ const GeoFenceForm = () => {
                 {
                     text: "Ok",
                     onPress: () => {
-                        Roam.createUser("", async (success) => {
-                            console.log("+++++++++++++++++++++++", success)
-                            startTracking(success.userId);
-
-                            console.log('I have come back to the calling function');
-                            createInitialGeofence(success.userId);
-                            await AsyncStorage.setItem('userId', success.userId);
-                            startAppInForeground();
-                        },
-                            error => {
-                                showMessage({
-                                    message: "Something went wrong",
-                                    description: "User could not be created",
-                                    type: "error",
-                                })
-                                RNExitApp.exitApp();
-                            });
+                        createInitialGeofence(userId);
                     },
                 },
             ],
@@ -160,16 +102,16 @@ const GeoFenceForm = () => {
             }
             setCoords(coords);
             try {
-                
+
                 let res = await http.post(`${apis.BASE_SERVER_URL}${apis.CREATE_GEOFENCE}`, {
-                    coordinates : [coords.lng, coords.lat],
-                    geometry_radius : 500,
-                    geometry_type : 'circle',
-                    user_ids : [userId],
-                    is_enabled : true
+                    coordinates: [coords.lng, coords.lat],
+                    geometry_radius: 500,
+                    geometry_type: 'circle',
+                    user_ids: [userId],
+                    is_enabled: true
                 })
 
-                if(!res.status) {
+                if (!res.status) {
                     throw Error("Something went wrong")
                 }
 
@@ -178,9 +120,10 @@ const GeoFenceForm = () => {
                     description: "You'll be notified when you cross the boundary",
                     type: "success",
                 })
-                
+
 
             } catch (error) {
+                console.log('Error in creating geo fence', error);
                 showMessage({
                     message: "Something went wrong",
                     description: "Please create the geofence manually",
@@ -212,30 +155,6 @@ const GeoFenceForm = () => {
         },
             { enableHighAccuracy: false, timeout: 20000, maximumAge: 10000 },
         );
-    }
-
-    let startTracking = (userId) => {
-        if (userId) {
-            Roam.enableAccuracyEngine();
-            Roam.subscribe(Roam.SubscribeListener.BOTH, userId);
-            Roam.publishAndSave();
-            Roam.allowMockLocation(true);
-            Roam.toggleListener(true, true, (success) => {
-                console.log(success);
-            }, error => {
-                console.log(error);
-            })
-            console.log('toogle Listener has been set properly');
-            Roam.toggleEvents(true, true, true, true, success => {
-                console.log(success);
-            }, error => {
-                console.log(error);
-            });
-            console.log('toogle Events has been set properly');
-            Roam.startTrackingDistanceInterval(1, 1000, Roam.DesiredAccuracy.HIGH);
-
-            console.log('All Tracking work has been completed properly');
-        }
     }
 
 
