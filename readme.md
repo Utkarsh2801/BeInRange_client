@@ -18,7 +18,7 @@ To run the app we need a live URL to connect to the backend, A tool like ***ngro
 map the port ***8000*** and put the live link in the project api.js file. The same link will be used in ***Roam*** server-side for the webhook URL.
 
 ## Architecture
-
+<img src="https://github.com/Utkarsh2801/BeInRange_client/blob/master/images/bir.jpeg?raw=false" width="80%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 ## Screenshots
 <img src="https://github.com/Utkarsh2801/BeInRange_client/blob/master/images/1.jpeg?raw=false" width="35%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
