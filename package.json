@@ -10,7 +10,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/geolocation": "^2.0.2",
+    "@react-native-firebase/app": "^14.3.0",
+    "@react-native-firebase/messaging": "^14.3.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.4.1",
     "@supersami/rn-foreground-service": "^1.1.1",
@@ -20,7 +23,9 @@
     "react-native": "0.67.2",
     "react-native-exit-app": "^1.1.0",
     "react-native-flash-message": "^0.2.1",
+    "react-native-modal-overlay": "^1.3.1",
     "react-native-progress-steps": "^1.3.4",
+    "react-native-push-notification": "^8.1.1",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.2",
     "react-native-svg": "^12.1.1",

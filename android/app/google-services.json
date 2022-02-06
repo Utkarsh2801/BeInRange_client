@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "490417882374",
+    "project_id": "beintherange",
+    "storage_bucket": "beintherange.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490417882374:android:32ef7a915a97e51907ca87",
+        "android_client_info": {
+          "package_name": "com.beinrange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "490417882374-6qvojic2odaph3duq3b45o8733pkqf5n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beinrange",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "490417882374-38ep1job360ac91cd3jtmus319gntqqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC4rcLrdu0B_6LbRPY-iD6tEs-5wbrC-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "490417882374-38ep1job360ac91cd3jtmus319gntqqr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

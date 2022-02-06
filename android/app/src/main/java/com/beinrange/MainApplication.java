@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
@@ -16,6 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.roam.sdk.Roam;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -30,8 +32,9 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
+          
           // Packages that cannot be autolinked yet can be added manually here, for example:
-          // packages.add(new RNExitAppPackage());
+          // packages.add(new ReactNativePushNotificationPackage());
           return packages;
         }
 
