@@ -7,7 +7,7 @@ BeInRange is a react native application that lets you allow to create geofence a
 Go to the root directory of the project and run
 
 ```bash
-pip install
+npm install
 npx react-native start
 npx react-native run-android
 ```
